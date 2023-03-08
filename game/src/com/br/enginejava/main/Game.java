@@ -4,6 +4,8 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -15,7 +17,7 @@ import com.br.enginejava.entidades.Entity;
 import com.br.enginejava.entidades.Player;
 import com.br.enginejava.graficos.Spritsheet;
 
-public class Game extends Canvas implements Runnable{
+public class Game extends Canvas implements Runnable, KeyListener{
 
 	private static final long serialVersionUID = 1L;
 	public static JFrame jframe;
@@ -29,14 +31,16 @@ public class Game extends Canvas implements Runnable{
 	private BufferedImage fundo;
 	public List<Entity> entidades;
 	public Spritsheet sprite;
+	public Player player;
 	
 	public Game() {
+		addKeyListener(this);
 		this.setPreferredSize(new Dimension(WIDTH * SCALE , HEIGHT * SCALE));
 		initFrame();
 		fundo = new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
 		entidades = new ArrayList<Entity>();	
 		sprite = new Spritsheet("/spritesheet.png");
-		Player player = new Player(0, 0, 16, 16,sprite.getSprite(32, 0, 16, 16));
+		player = new Player(0, 0, 16, 16,sprite.getSprite(32, 0, 16, 16));
 		entidades.add(player);
 		}
 	
@@ -99,7 +103,7 @@ public class Game extends Canvas implements Runnable{
 	public void run() {
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0f;
-		double ms = 1000000/ amountOfTicks;
+		double ms = 1000000000/ amountOfTicks;
 		double delta = 0;
 		int frames = 0;
 		double timer = System.currentTimeMillis();
@@ -122,6 +126,41 @@ public class Game extends Canvas implements Runnable{
 			}
 		}
 		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// nao sera usada
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {  // onde esta precionado
+		if(e.getKeyCode() == KeyEvent.VK_D) {
+			player.right = true;
+		}else if (e.getKeyCode() == KeyEvent.VK_A) {
+			player.left = true;
+		}
+		if(e.getKeyCode() == KeyEvent.VK_W) {
+			player.up = true;
+		}else if (e.getKeyCode() == KeyEvent.VK_S) {
+			player.down = true;
+		}
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {	// onde nao esta precionado
+		if(e.getKeyCode() == KeyEvent.VK_D) {
+			player.right = false;
+		}else if (e.getKeyCode() == KeyEvent.VK_A) {
+			player.left = false;
+		}
+		if(e.getKeyCode() == KeyEvent.VK_W) {
+			player.up = false;
+		}else if (e.getKeyCode() == KeyEvent.VK_S) {
+			player.down = false;
+		}
 	}
 
 }
