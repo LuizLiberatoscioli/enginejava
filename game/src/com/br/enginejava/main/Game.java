@@ -6,9 +6,14 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
+
+import com.br.enginejava.entidades.Entity;
+import com.br.enginejava.entidades.Player;
+import com.br.enginejava.graficos.Spritsheet;
 
 public class Game extends Canvas implements Runnable{
 
@@ -22,12 +27,18 @@ public class Game extends Canvas implements Runnable{
 	private static int SCALE = 3;
 	
 	private BufferedImage fundo;
+	public List<Entity> entidades;
+	public Spritsheet sprite;
 	
 	public Game() {
 		this.setPreferredSize(new Dimension(WIDTH * SCALE , HEIGHT * SCALE));
 		initFrame();
 		fundo = new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
-	}
+		entidades = new ArrayList<Entity>();	
+		sprite = new Spritsheet("/spritesheet.png");
+		Player player = new Player(0, 0, 16, 16,sprite.getSprite(32, 0, 16, 16));
+		entidades.add(player);
+		}
 	
 	public void initFrame() {
 		jframe = new JFrame(" Jogo ");
@@ -56,6 +67,10 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	public synchronized void tick () {
+		for (int i =0 ; i< entidades.size(); i++ ) {
+			Entity entidade = entidades.get(i);
+			entidade.tick();
+		}
 		
 	}
 	public synchronized void render() {
@@ -68,7 +83,16 @@ public class Game extends Canvas implements Runnable{
 		Graphics g = fundo.getGraphics();
 		g.setColor(new Color(20,20,20));
 		g.fillRect(0,0,WIDTH,HEIGHT);
+		
+		for (int i =0 ; i< entidades.size(); i++ ) {
+			Entity entidade = entidades.get(i);
+			entidade.render(g);
+		}
+		
+		g = buffer.getDrawGraphics();
+		g.drawImage(fundo, 0, 0, WIDTH*SCALE, HEIGHT*SCALE , null);
 		buffer.show();
+	
 	}
 
 	@Override
