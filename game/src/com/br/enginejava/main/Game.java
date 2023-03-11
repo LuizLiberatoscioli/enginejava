@@ -25,15 +25,15 @@ public class Game extends Canvas implements Runnable, KeyListener{
 	private Thread thread;
 	private boolean isRunning = true;
 	
-	private static int WIDTH = 160;
-	private static int HEIGHT = 120;
-	private static int SCALE = 3;
+	public static int WIDTH = 240;
+	public static int HEIGHT = 160;
+	public static int SCALE = 4;
 	
 	private BufferedImage fundo;
 	public List<Entity> entidades;
 	public static Spritsheet sprite;
 	public static Mundo mundo;
-	public Player player;
+	public static Player player;
 	
 	public Game() {
 		addKeyListener(this);
@@ -42,9 +42,9 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		fundo = new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
 		entidades = new ArrayList<Entity>();	
 		sprite = new Spritsheet("/sprite1.png");
-		mundo = new Mundo("/level1.png");
 		player = new Player(0, 0, 16, 16,sprite.getSprite(32, 0, 16, 16));
 		entidades.add(player);
+		mundo = new Mundo("/level1.png");
 		}
 	
 	public void initFrame() {

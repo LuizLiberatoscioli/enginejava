@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import com.br.enginejava.main.Game;
+import com.br.enginejava.mundo.Camera;
+import com.br.enginejava.mundo.Mundo;
 
 public class Player extends Entity {
 	
@@ -48,9 +50,9 @@ public class Player extends Entity {
 		    direcaoAtual = esquerda;
 		}
 			
-		/*
-		 * if(down) y+=speed; if(up) y-=speed;
-		 */
+		
+		  if(down) y+=speed; if(up) y-=speed;
+		 
 		
 		if(movimentacao == 1) {
 			frames++;
@@ -63,19 +65,23 @@ public class Player extends Entity {
 			}
 			
 		}
+		
+		Camera.x = Camera.Clamp(this.getX() - (Game.WIDTH /2), 0, Mundo.WIDTH*16 - Game.WIDTH);
+		Camera.y = Camera.Clamp(this.getY() - (Game.HEIGHT /2), 0, Mundo.HEIGHT*19 - Game.WIDTH);
+		
 	}
 	public void render(Graphics g) {
 		if(direcaoAtual == direita && movimentacao == 1 ) {
-			g.drawImage(playerRight[index],this.getX(),this.getY(),null);
+			g.drawImage(playerRight[index],this.getX()-Camera.x,this.getY()-Camera.y,null);
 		}
 		if(direcaoAtual == direita && movimentacao == 0 ) {
-			g.drawImage(playerRight[0],this.getX(),this.getY(),null);
+			g.drawImage(playerRight[0],this.getX()-Camera.x,this.getY()-Camera.y,null);
 		}
 		if(direcaoAtual == esquerda && movimentacao == 1 ) {
-			g.drawImage(playerLeft[index],this.getX(),this.getY(),null);
+			g.drawImage(playerLeft[index],this.getX()-Camera.x,this.getY()-Camera.y,null);
 		}
 		if(direcaoAtual == esquerda && movimentacao == 0 ) {
-			g.drawImage(playerLeft[0],this.getX(),this.getY(),null);
+			g.drawImage(playerLeft[0],this.getX()-Camera.x,this.getY()-Camera.y,null);
 		}
 	}
 

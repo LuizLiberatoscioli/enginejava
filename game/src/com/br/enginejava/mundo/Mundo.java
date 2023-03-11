@@ -6,9 +6,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import com.br.enginejava.main.Game;
+
 public class Mundo {
 	
-	public int WIDTH , HEIGHT;
+	public static int WIDTH , HEIGHT;
 	public Tile[] tiles;
 	
 
@@ -34,7 +36,8 @@ public class Mundo {
 					tiles [x + (y* WIDTH)] = new Empty(x* 16, y*16, Tile.empty);
 					if(pixelAtual == 0xFF3f3f74) {
 						//player
-						tiles [x + (y* WIDTH)] = new Empty(x* 16, y*16, Tile.empty);
+						Game.player.setX(x*16);
+						Game.player.setY(y*16);
 					}else if (pixelAtual == 0xFF663931) {
 						//terra
 						tiles [x + (y* WIDTH)] = new Terra(x* 16, y*16, Tile.terra);
@@ -55,8 +58,15 @@ public class Mundo {
 	
 	}
 	public void render(Graphics g) {
-		for (int x = 0 ; x < WIDTH ; x++ ) {
-			for (int y = 0 ; y < HEIGHT ; y++ ) {
+		int xi = Camera.x/16;				// tamanho q deve ser renderizado xi= x inicial xf = x final
+		int yi = Camera.y/16;
+		int xf = xi + (Game.WIDTH/16);
+		int yf = yi + (Game.HEIGHT/16);
+		
+		for (int x = xi ; x < xf ; x++ ) {
+			for (int y = yi ; y < yf ; y++ ) {
+				if (x < 0 || y <0 || x >= WIDTH || y >= HEIGHT) 
+					continue;
 				Tile tile = tiles [x + (y*WIDTH)];
 				tile.render(g);
 			}

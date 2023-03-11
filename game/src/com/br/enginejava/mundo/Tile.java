@@ -7,7 +7,7 @@ import com.br.enginejava.main.Game;
 
 public class Tile {
 	
-	public static BufferedImage terra = Game.sprite.getSprite(0, 16, 16, 16);
+	public static BufferedImage terra = Game.sprite.getSprite(0, 0, 16, 16);
 	public static BufferedImage mato = Game.sprite.getSprite(16, 0, 16, 16);
 	public static BufferedImage empty = Game.sprite.getSprite(16, 32, 16, 16);
 	
@@ -21,7 +21,7 @@ public class Tile {
 	}
 	
 	public void render(Graphics g) {
-		g.drawImage(sprite,x,y, null);
+		g.drawImage(sprite,x-Camera.x,y-Camera.y, null);
 	}
 
 }
