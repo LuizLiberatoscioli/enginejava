@@ -6,6 +6,9 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import com.br.enginejava.entidades.Ceu;
+import com.br.enginejava.entidades.Entity;
+import com.br.enginejava.entidades.Solido;
 import com.br.enginejava.main.Game;
 
 public class Mundo {
@@ -33,20 +36,30 @@ public class Mundo {
 			for (int x = 0 ; x < level.getWidth(); x++) {    // fazendo verificacoes
 				for(int y = 0 ; y < level.getHeight(); y++) {
 					int pixelAtual = pixels[x + (y * level.getWidth())];
-					tiles [x + (y* WIDTH)] = new Empty(x* 16, y*16, Tile.empty);
+					tiles [x + (y* WIDTH)] = new Empty(x* 16, y*16, Entity.empty);
 					if(pixelAtual == 0xFF3f3f74) {
 						//player
 						Game.player.setX(x*16);
 						Game.player.setY(y*16);
 					}else if (pixelAtual == 0xFF663931) {
 						//terra
-						tiles [x + (y* WIDTH)] = new Terra(x* 16, y*16, Tile.terra);
+						
+					Solido solido = new Solido (x* 16, y*16,16,16, Entity.terra);
+					Game.entidades.add(solido);
+					//	tiles [x + (y* WIDTH)] = new Terra(x* 16, y*16, Entity.terra);
+					
 					}else if (pixelAtual == 0xFF4b692f) {
 						//mato
-						tiles [x + (y* WIDTH)] = new Terra(x* 16, y*16, Tile.mato);
-					}else if (pixelAtual == 0xFFffffff) {
-						//empty
-						tiles [x + (y* WIDTH)] = new Empty(x* 16, y*16, Tile.empty);
+					Solido solido = new Solido (x* 16, y*16,16,16, Entity.mato);
+						Game.entidades.add(solido);
+						
+					//	tiles [x + (y* WIDTH)] = new Terra(x* 16, y*16, Entity.mato);
+						
+					}else if (pixelAtual == 0xFF123f7d) {
+						
+						Ceu ceu = new Ceu (x* 16, y*16,16,16, Entity.ceu);
+						Game.ceuvetor.add(ceu);
+						
 					}
 
 				}

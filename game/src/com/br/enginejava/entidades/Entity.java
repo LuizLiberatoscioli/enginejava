@@ -3,7 +3,15 @@ package com.br.enginejava.entidades;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import com.br.enginejava.main.Game;
+import com.br.enginejava.mundo.Camera;
+
 public class Entity {
+	
+	public static BufferedImage terra = Game.sprite.getSprite(0, 0, 16, 16);
+	public static BufferedImage mato = Game.sprite.getSprite(16, 0, 16, 16);
+	public static BufferedImage empty = Game.sprite.getSprite(16, 32, 16, 16);
+	public static BufferedImage ceu = Game.ceu.getSprite(0, 0, 1471, 400);
 	
 	protected double x;
 	protected double y;
@@ -63,7 +71,7 @@ public class Entity {
 		
 	}
 	public void render(Graphics g) {
-		g.drawImage(sprite , this.getX(), this.getY(), null);
+		g.drawImage(sprite , this.getX()-Camera.x, this.getY()-Camera.y, null);
 	}
 
 }

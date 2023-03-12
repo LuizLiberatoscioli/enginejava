@@ -13,6 +13,7 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
+import com.br.enginejava.entidades.Ceu;
 import com.br.enginejava.entidades.Entity;
 import com.br.enginejava.entidades.Player;
 import com.br.enginejava.graficos.Spritsheet;
@@ -30,18 +31,27 @@ public class Game extends Canvas implements Runnable, KeyListener{
 	public static int SCALE = 4;
 	
 	private BufferedImage fundo;
-	public List<Entity> entidades;
+	public static List<Entity> entidades;
 	public static Spritsheet sprite;
 	public static Mundo mundo;
+	
 	public static Player player;
+	
+	public static List<Ceu> ceuvetor;
+	public static Spritsheet ceu;
+	
+	public UserInterface ui;
 	
 	public Game() {
 		addKeyListener(this);
 		this.setPreferredSize(new Dimension(WIDTH * SCALE , HEIGHT * SCALE));
 		initFrame();
+		ui = new UserInterface();
 		fundo = new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
 		entidades = new ArrayList<Entity>();	
 		sprite = new Spritsheet("/sprite1.png");
+		ceuvetor = new ArrayList<Ceu>();	
+		ceu = new Spritsheet("/ceusprite.png");
 		player = new Player(0, 0, 16, 16,sprite.getSprite(32, 0, 16, 16));
 		entidades.add(player);
 		mundo = new Mundo("/level1.png");
@@ -79,9 +89,14 @@ public class Game extends Canvas implements Runnable, KeyListener{
 			entidade.tick();
 		}
 		
+		for (int i =0 ; i< ceuvetor.size(); i++ ) {
+			Ceu entidade = ceuvetor.get(i);
+			entidade.tick();
+		}
+		
 	}
 	public synchronized void render() {
-		
+		// carregar o mundo preto
 		BufferStrategy buffer = this.getBufferStrategy();
 		if(buffer == null) {
 			this.createBufferStrategy(3);
@@ -91,12 +106,22 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		g.setColor(new Color(20,20,20));
 		g.fillRect(0,0,WIDTH,HEIGHT);
 		
+		//carregar o mundo
 		mundo.render(g);
 		
+		//carregar o ceu
+		for (int i =0 ; i< ceuvetor.size(); i++ ) {
+			Ceu entidade = ceuvetor.get(i);
+			entidade.render(g);
+		}
+		
+		//carregar os tales e player
 		for (int i =0 ; i< entidades.size(); i++ ) {
 			Entity entidade = entidades.get(i);
 			entidade.render(g);
 		}
+		
+		ui.render(g);
 		
 		g = buffer.getDrawGraphics();
 		g.drawImage(fundo, 0, 0, WIDTH*SCALE, HEIGHT*SCALE , null);

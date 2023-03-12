@@ -11,6 +11,7 @@ public class Player extends Entity {
 	
 	public boolean right , left , down, up;
 	public double speed = 1.5;
+	public static double life = 100 , maxlife= 100;
 	
 	public int direita = 1 , esquerda = 0 ;
 	public int direcaoAtual = direita;
@@ -67,7 +68,7 @@ public class Player extends Entity {
 		}
 		
 		Camera.x = Camera.Clamp(this.getX() - (Game.WIDTH /2), 0, Mundo.WIDTH*16 - Game.WIDTH);
-		Camera.y = Camera.Clamp(this.getY() - (Game.HEIGHT /2), 0, Mundo.HEIGHT*19 - Game.WIDTH);
+		Camera.y = Camera.Clamp(this.getY() - (Game.HEIGHT /2), 0, Mundo.HEIGHT*20 - Game.WIDTH);
 		
 	}
 	public void render(Graphics g) {
