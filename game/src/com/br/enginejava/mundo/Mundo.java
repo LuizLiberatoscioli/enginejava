@@ -6,8 +6,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import com.br.enginejava.entidades.Cenoura;
 import com.br.enginejava.entidades.Ceu;
 import com.br.enginejava.entidades.Entity;
+import com.br.enginejava.entidades.Grama;
+import com.br.enginejava.entidades.Inimigo;
 import com.br.enginejava.entidades.Solido;
 import com.br.enginejava.main.Game;
 
@@ -60,7 +63,24 @@ public class Mundo {
 						Ceu ceu = new Ceu (x* 16, y*16,16,16, Entity.ceu);
 						Game.ceuvetor.add(ceu);
 						
+					}else if (pixelAtual == 0xFFcf1616) {
+	
+						Inimigo a = new Inimigo (x* 16, y*16,16,16, Entity.inimigo);
+						Game.inimigo.add(a);
+						
+					}else if (pixelAtual == 0xFFdf7126) {
+	
+						Cenoura a = new Cenoura (x* 16, y*16,16,16, Entity.cenoura);
+						Game.cenoura.add(a);
+						
+					}else if (pixelAtual == 0xFF8c7133) {
+	
+						Grama a = new Grama (x* 16, y*16,16,16, Entity.grama);
+						Game.entidades.add(a);
+						
 					}
+					
+					
 
 				}
 			}

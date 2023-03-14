@@ -13,6 +13,10 @@ public class Entity {
 	public static BufferedImage empty = Game.sprite.getSprite(16, 32, 16, 16);
 	public static BufferedImage ceu = Game.ceu.getSprite(0, 0, 1471, 400);
 	
+	public static BufferedImage grama = Game.sprite.getSprite(0, 32, 16, 16);
+	public static BufferedImage inimigo = Game.sprite.getSprite(112, 0, 16, 16);
+	public static BufferedImage cenoura = Game.sprite.getSprite(112, 16, 16, 16);
+	
 	protected double x;
 	protected double y;
 	protected int width;
