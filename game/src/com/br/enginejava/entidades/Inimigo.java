@@ -10,11 +10,10 @@ import com.br.enginejava.mundo.Camera;
 public class Inimigo extends Entity{
 	
 	public double speed = 0.5;
-	
 	public int movimentacao = 1;
 	public int frames = 0 , maxFrames =7 ,index =0 , maxIndex = 1 ; // animacao
-	
 	public int maskx= 0 , masky = 0, maskw = 16 , maskh = 16;
+	public int life = 5, maxlife = 9;
 	
 	public BufferedImage[] inimigo;
 	
@@ -23,13 +22,22 @@ public class Inimigo extends Entity{
 		super(x, y, width, height, sprite);
 		inimigo = new BufferedImage[2]; // sempre 1 mais q o maxindex
 		
-		for(int i =0; i<2 ; i++) {
+		for(int i =0; i<2 ; i++) {  //frames de animacao
 			inimigo[i] = Game.sprite.getSprite(112 + (i*16), 0, 16, 16);
 			
 		}
 		
 	}
 	public void tick() {
+		
+		if(life <= 0 ) {
+			
+		}
+		
+		for (int i = 0 ; i < Game.inimigo.size(); i++) {
+			System.out.println("Vida: "+ life+ "indice: "+i);
+			
+		}
 		
 		if(!colisao((int)x, (int)(y+1)))  {
 			y+=2;
