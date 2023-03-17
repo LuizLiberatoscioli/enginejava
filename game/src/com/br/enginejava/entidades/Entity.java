@@ -17,6 +17,8 @@ public class Entity {
 	public static BufferedImage inimigo = Game.sprite.getSprite(112, 0, 16, 16);
 	public static BufferedImage cenoura = Game.sprite.getSprite(112, 16, 16, 16);
 	
+	public static BufferedImage save = Game.sprite.getSprite(96, 16, 16, 16);
+	
 	protected double x;
 	protected double y;
 	protected int width;

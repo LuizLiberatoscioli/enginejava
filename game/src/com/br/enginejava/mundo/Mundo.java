@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 
 import com.br.enginejava.entidades.Cenoura;
 import com.br.enginejava.entidades.Ceu;
+import com.br.enginejava.entidades.Check;
 import com.br.enginejava.entidades.Entity;
 import com.br.enginejava.entidades.Grama;
 import com.br.enginejava.entidades.Inimigo;
@@ -76,6 +77,12 @@ public class Mundo {
 					}else if (pixelAtual == 0xFF8c7133) {
 	
 						Grama a = new Grama (x* 16, y*16,16,16, Entity.grama);
+						Game.entidades.add(a);
+						
+					}
+					else if (pixelAtual == 0xFFfff582) {
+						
+						Check a = new Check (x* 16, y*16,16,16, Entity.save);
 						Game.entidades.add(a);
 						
 					}

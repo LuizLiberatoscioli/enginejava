@@ -32,6 +32,8 @@ public class Player extends Entity {
 	public int jumpFrames = 0;
 	public Inimigo pl;
 	public Cenoura vida;
+	
+	public int posx, posy;
 
 	public Player(int x, int y, int width, int height, BufferedImage sprite) {
 		super(x, y, width, height, sprite);
@@ -142,12 +144,26 @@ public class Player extends Entity {
 		}
 		
 		if(damage((int) (x + speed), this.getY())) {
-			life -= 0.20;
+			life -= 0.45;
 		}
 		
-		if(vida (this.getX() , this.getY())) {
+		if(vida (this.getX() , this.getY()) && life <100) {
 			life += 10;
+			if(life > 100) {
+				life = 100;
+			}
 			Game.cenoura.remove(vida);
+		}
+		
+		if(check (this.getX() , this.getY())){
+			posx = this.getX();
+			posy = this.getY();
+		}
+		
+		if(life <= 0 ) {
+			setX(posx);
+			setY(posy);
+			life = 100;
 		}
 		
 
@@ -170,6 +186,23 @@ public class Player extends Entity {
 
 		return false;
 	}
+	
+	public boolean check(int nextx, int nexty) {
+		Rectangle player = new Rectangle(nextx + maskx, nexty + masky, maskw, maskh);
+		for (int i = 0; i < Game.entidades.size(); i++) {
+			Entity entidade = Game.entidades.get(i);
+			if (entidade instanceof Check) {
+				Rectangle solido = new Rectangle(entidade.getX() + maskx, entidade.getY() + masky, maskw, maskh);
+				if (player.intersects(solido)) {
+					
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+	
 	
 	public boolean damage(int nextx, int nexty) {
 		Rectangle player = new Rectangle(nextx + maskx, nexty + masky, maskw, maskh);
