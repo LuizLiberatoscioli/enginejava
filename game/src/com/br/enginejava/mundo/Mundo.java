@@ -3,6 +3,7 @@ package com.br.enginejava.mundo;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -12,7 +13,9 @@ import com.br.enginejava.entidades.Check;
 import com.br.enginejava.entidades.Entity;
 import com.br.enginejava.entidades.Grama;
 import com.br.enginejava.entidades.Inimigo;
+import com.br.enginejava.entidades.Player;
 import com.br.enginejava.entidades.Solido;
+import com.br.enginejava.graficos.Spritsheet;
 import com.br.enginejava.main.Game;
 
 public class Mundo {
@@ -111,6 +114,20 @@ public class Mundo {
 				tile.render(g);
 			}
 		}
+	}
+	public static void newLevel(String level) {
+		
+			// trocar de level
+		Game.entidades = new ArrayList<Entity>();
+		Game.sprite = new Spritsheet("/sprite1.png");
+		Game.ceuvetor = new ArrayList<Ceu>();
+		Game.cenoura = new ArrayList<Cenoura>();
+		Game.inimigo = new ArrayList<Inimigo>();
+		Game.grama = new ArrayList<Grama>();
+		Game.ceu = new Spritsheet("/ceusprite.png");
+		Game.player = new Player(0, 0, 16, 16, Game.sprite.getSprite(32, 0, 16, 16));
+		Game.entidades.add(Game.player);
+		Game.mundo = new Mundo("/"+level);
 	}
 	
 }

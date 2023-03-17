@@ -48,6 +48,9 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	public static List<Grama> grama;
 
 	public UserInterface ui;
+	
+	public int level = 1, levelmaximo = 2 ;
+	
 
 	public Game() {
 		addKeyListener(this);
@@ -96,6 +99,17 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	}
 
 	public synchronized void tick() {
+			//se matar todos enimigos passa de level
+		if(inimigo.size() == 0) {
+			level++;
+			// terminar o mundo volta do zero
+			if(level > levelmaximo) {
+				level = 1;
+			}
+			String passar = "level"+level+".png";
+			Mundo.newLevel(passar);
+		}
+		
 		for (int i = 0; i < entidades.size(); i++) {
 			Entity entidade = entidades.get(i);
 			entidade.tick();
