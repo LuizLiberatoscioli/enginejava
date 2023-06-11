@@ -23,6 +23,8 @@ import com.br.enginejava.graficos.Spritsheet;
 import com.br.enginejava.mundo.Mundo;
 
 public class Game extends Canvas implements Runnable, KeyListener {
+	
+	private Introducao introducao;
 
 	private static final long serialVersionUID = 1L;
 	public static JFrame jframe;
@@ -53,6 +55,9 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	
 
 	public Game() {
+		
+		introducao = new Introducao();
+		
 		addKeyListener(this);
 		this.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		initFrame();
@@ -84,9 +89,27 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	public static void main(String[] args) {
 
 		Game game = new Game();
+		game.exibirIntroducao(); // Chama o método para exibir a introdução
+		
+		try {
+		    Thread.sleep(3000); // Aguarda 2 segundos (2000 milissegundos)
+		} catch (InterruptedException e) {
+		    e.printStackTrace();
+		}
+		
+		TelaDeMenu telaDeMenu = new TelaDeMenu();
+	        telaDeMenu.setVisible(true);
+	        
+	        
 		game.start();
 
 	}
+	 public void exibirIntroducao() {
+	        introducao.exibirIntroducao();
+	    }
+	  public void fecharIntroducao() {
+	        introducao.fecharIntroducao();
+	    }
 
 	public synchronized void start() {
 		thread = new Thread(this);
@@ -204,6 +227,10 @@ public class Game extends Canvas implements Runnable, KeyListener {
 				render();
 				frames++;
 				delta--;
+				
+				if (introducao.isVisible()) {
+                    fecharIntroducao(); // Fecha a introdução assim que o jogo começa a renderizar
+                }
 			}
 
 			if (System.currentTimeMillis() - timer >= 1000) {
